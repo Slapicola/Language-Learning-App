@@ -62,7 +62,7 @@ fun GreetingPreview() {
         Column {
             Greeting()
             VocabQuizButton {}
-            PronunciationButton {}
+            PronunciationButton {println("Pronunciation button Clicked")}
         }
 
     }
