@@ -57,6 +57,13 @@ fun PronunciationButton(onClick: () -> Unit) {
 }
 
 @Composable
+fun BackButton(onBackClick: () -> Unit) {
+    FilledTonalButton(onClick = { onBackClick()}) {
+        Text("Back")
+    }
+}
+
+@Composable
 fun LanguageLearningAppScreens() {
     var currentScreen by remember {
         mutableStateOf("home")
@@ -72,8 +79,12 @@ fun LanguageLearningAppScreens() {
             }
         )
 
-        "quiz" -> QuizScreen()
-        "pronunciation" -> PronunciationScreen()
+        "quiz" -> QuizScreen(onBackClick = {
+            currentScreen = "home"
+        })
+        "pronunciation" -> PronunciationScreen(onBackClick = {
+            currentScreen = "home"
+        })
     }
 }
 
@@ -91,13 +102,63 @@ fun HomeScreen(
 }
 
 @Composable
-fun QuizScreen() {
-    Text("Vocabulary Quiz Screen")
+fun QuizScreen(onBackClick: () -> Unit) {
+    Column {
+        Text("Vocabulary Quiz")
+        BackButton { onBackClick() }
+        Text("Question 1: What does 'Hola' mean?")
+        Choice1Button { }
+        Choice2Button { }
+        Choice3Button { }
+        Choice4Button { }
+
+    }
+
 }
 
 @Composable
-fun PronunciationScreen() {
-    Text("Pronunciation Guide Screen")
+fun Choice1Button(onClick: () -> Unit) {
+    FilledTonalButton(onClick = { onClick()}) {
+        Text("Hello")
+    }
+}
+@Composable
+fun Choice2Button(onClick: () -> Unit) {
+    FilledTonalButton(onClick = { onClick()}) {
+        Text("Goodbye")
+    }
+}
+@Composable
+fun Choice3Button(onClick: () -> Unit) {
+    FilledTonalButton(onClick = { onClick()}) {
+        Text("Please")
+    }
+}
+@Composable
+fun Choice4Button(onClick: () -> Unit) {
+    FilledTonalButton(onClick = { onClick()}) {
+        Text("Thank You")
+    }
+}
+
+@Composable
+fun PronunciationScreen(onBackClick: () -> Unit) {
+    Column {
+        Text("Pronunciation Guide")
+        BackButton { onBackClick() }
+        Text("Word: Hola")
+        Text("Pronunciation: OH-lah")
+        Text("English Translation: Hello")
+
+        Text("Word: Gracias")
+        Text("Pronunciation: GRAH-see-ahs")
+        Text("English Translation: Thank you")
+
+        Text("Word: Por favor")
+        Text("Pronunciation: POUR fa-vore")
+        Text("English Translation: Please")
+    }
+
 }
 
 @Preview(showBackground = true)
