@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilledTonalButton
@@ -113,46 +114,54 @@ fun QuizScreen(onBackClick: () -> Unit) {
     Column {
         Text("Vocabulary Quiz")
         BackButton { onBackClick() }
-        Text("Question 1: What does 'Hola' mean?")
-        Choice1Button { }
-        Choice2Button { }
-        Choice3Button { }
-        Choice4Button { }
 
+        Column {
+            Text("Question 1: What does 'Hola' mean?")
+            AnswerButton(text = "Goodbye") { }
+            AnswerButton(text = "Hello") { }
+            AnswerButton(text = "Please") { }
+            AnswerButton(text = "Thank You") { }
+        }
+        Column {
+            Text("Question 2: What does 'Por favor' mean?")
+            AnswerButton(text = "Hello") { }
+            AnswerButton(text = "Goodbye") { }
+            AnswerButton(text = "Thank You") { }
+            AnswerButton(text = "Please") { }
+        }
+        Column {
+            Text("Question 3: What does 'Gracias' mean?")
+            AnswerButton(text = "Please") { }
+            AnswerButton(text = "Thank You") { }
+            AnswerButton(text = "Hello") { }
+            AnswerButton(text = "Goodbye") { }
+        }
+        Column {
+            Text("Question 4: What does 'Adios' mean?")
+            AnswerButton(text = "Thank You") { }
+            AnswerButton(text = "Please") { }
+            AnswerButton(text = "Goodbye") { }
+            AnswerButton(text = "Hello") { }
+        }
     }
 
 }
 
 @Composable
-fun Choice1Button(onClick: () -> Unit) {
+fun AnswerButton(text: String, onClick: () -> Unit) {
     FilledTonalButton(onClick = { onClick()}) {
-        Text("Hello")
+        Text(text)
     }
 }
-@Composable
-fun Choice2Button(onClick: () -> Unit) {
-    FilledTonalButton(onClick = { onClick()}) {
-        Text("Goodbye")
-    }
-}
-@Composable
-fun Choice3Button(onClick: () -> Unit) {
-    FilledTonalButton(onClick = { onClick()}) {
-        Text("Please")
-    }
-}
-@Composable
-fun Choice4Button(onClick: () -> Unit) {
-    FilledTonalButton(onClick = { onClick()}) {
-        Text("Thank You")
-    }
-}
+
 
 @Composable
 fun PronunciationScreen(onBackClick: () -> Unit) {
-    Column {
+    Row {
         Text("Pronunciation Guide")
         BackButton { onBackClick() }
+    }
+    Column {
         Text("Word: Hola")
         Text("Pronunciation: OH-lah")
         Text("English Translation: Hello")
@@ -164,6 +173,26 @@ fun PronunciationScreen(onBackClick: () -> Unit) {
         Text("Word: Por favor")
         Text("Pronunciation: POUR fa-vore")
         Text("English Translation: Please")
+
+        Text("Word: De nada")
+        Text("Pronunciation: de naw-daw")
+        Text("English Translation: You're Welcome")
+
+        Text("Word: Madre")
+        Text("Pronunciation: ma-dreh")
+        Text("English Translation: mother")
+
+        Text("Word: Padre")
+        Text("Pronunciation: paw-dreh")
+        Text("English Translation: father")
+
+        Text("Word: Hermano")
+        Text("Pronunciation: her-mah-no")
+        Text("English Translation: brother")
+
+        Text("Word: Hermana")
+        Text("Pronunciation: her-mah-nah")
+        Text("English Translation: sister")
     }
 
 }
