@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity() {
 fun Greeting(modifier: Modifier = Modifier) {
     Text(
         text = "Welcome to the Language Learning App!",
-        modifier = modifier
+        modifier = modifier, style = MaterialTheme.typography.titleLarge
     )
 }
 
@@ -115,9 +116,11 @@ fun HomeScreen(
 @Composable
 fun QuizScreen(onBackClick: () -> Unit) {
     Column (modifier = Modifier.verticalScroll(rememberScrollState())) {
-        Text("Vocabulary Quiz")
-        BackButton { onBackClick() }
-        var score by remember {mutableIntStateOf(0)}
+        var score by remember { mutableIntStateOf(0) }
+        Row {
+            Text("Vocabulary Quiz", style = MaterialTheme.typography.titleLarge)
+            BackButton { onBackClick() }
+        }
         Text(text = "Score: $score/4")
 
         var question1Result by remember { mutableStateOf("") }
@@ -213,7 +216,7 @@ fun AnswerButton(text: String, onClick: () -> Unit) {
 fun PronunciationScreen(onBackClick: () -> Unit) {
     Column (modifier = Modifier.verticalScroll(rememberScrollState())){
         Row {
-            Text("Pronunciation Guide")
+            Text("Pronunciation Guide", style = MaterialTheme.typography.titleLarge)
             BackButton { onBackClick() }
         }
 
@@ -222,29 +225,43 @@ fun PronunciationScreen(onBackClick: () -> Unit) {
             Text("Pronunciation: OH-lah")
             Text("English Translation: Hello")
 
+            Text("")
+
             Text("Word: Gracias")
             Text("Pronunciation: GRAH-see-ahs")
             Text("English Translation: Thank you")
+
+            Text("")
 
             Text("Word: Por favor")
             Text("Pronunciation: POUR fa-vore")
             Text("English Translation: Please")
 
+            Text("")
+
             Text("Word: De nada")
             Text("Pronunciation: de naw-daw")
             Text("English Translation: You're Welcome")
+
+            Text("")
 
             Text("Word: Madre")
             Text("Pronunciation: ma-dreh")
             Text("English Translation: mother")
 
+            Text("")
+
             Text("Word: Padre")
             Text("Pronunciation: paw-dreh")
             Text("English Translation: father")
 
+            Text("")
+
             Text("Word: Hermano")
             Text("Pronunciation: her-mah-no")
             Text("English Translation: brother")
+
+            Text("")
 
             Text("Word: Hermana")
             Text("Pronunciation: her-mah-nah")
