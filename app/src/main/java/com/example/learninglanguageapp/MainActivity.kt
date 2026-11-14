@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -114,34 +115,76 @@ fun QuizScreen(onBackClick: () -> Unit) {
     Column {
         Text("Vocabulary Quiz")
         BackButton { onBackClick() }
+        var score by remember {mutableIntStateOf(0)};
+        Text(text = "Score: $score")
+
+        var question1Result by remember { mutableStateOf("") }
+        var question2Result by remember { mutableStateOf("") }
+        var question3Result by remember { mutableStateOf("") }
+        var question4Result by remember { mutableStateOf("") }
+
+        var question1Scored by remember { mutableStateOf(false) }
+        var question2Scored by remember { mutableStateOf(false) }
+        var question3Scored by remember { mutableStateOf(false) }
+        var question4Scored by remember { mutableStateOf(false) }
 
         Column {
             Text("Question 1: What does 'Hola' mean?")
-            AnswerButton(text = "Goodbye") { }
-            AnswerButton(text = "Hello") { }
-            AnswerButton(text = "Please") { }
-            AnswerButton(text = "Thank You") { }
+            AnswerButton(text = "Goodbye") { question1Result = "Incorrect!"}
+            AnswerButton(text = "Hello") {
+                question1Result = "Correct!"
+                if (!question1Scored) {
+                    score++
+                    question1Scored = true
+                }
+            }
+            AnswerButton(text = "Please") { question1Result = "Incorrect!"}
+            AnswerButton(text = "Thank You") { question1Result = "Incorrect!"}
+
+            Text(question1Result)
         }
         Column {
             Text("Question 2: What does 'Por favor' mean?")
-            AnswerButton(text = "Hello") { }
-            AnswerButton(text = "Goodbye") { }
-            AnswerButton(text = "Thank You") { }
-            AnswerButton(text = "Please") { }
+            AnswerButton(text = "Hello") { question2Result = "Incorrect!"}
+            AnswerButton(text = "Goodbye") { question2Result = "Incorrect!"}
+            AnswerButton(text = "Thank You") { question2Result = "Incorrect!"}
+            AnswerButton(text = "Please") { question2Result = "Correct!"
+                if (!question2Scored) {
+                    score++
+                    question2Scored = true
+                }
+
+            }
+
+            Text(question2Result)
         }
         Column {
             Text("Question 3: What does 'Gracias' mean?")
-            AnswerButton(text = "Please") { }
-            AnswerButton(text = "Thank You") { }
-            AnswerButton(text = "Hello") { }
-            AnswerButton(text = "Goodbye") { }
+            AnswerButton(text = "Please") { question3Result = "Incorrect!"}
+            AnswerButton(text = "Thank You") {question3Result = "Correct!"
+                if (!question3Scored) {
+                    score++
+                    question3Scored = true
+                }
+            }
+            AnswerButton(text = "Hello") { question3Result = "Incorrect!"}
+            AnswerButton(text = "Goodbye") { question3Result = "Incorrect!"}
+
+            Text(question3Result)
         }
         Column {
             Text("Question 4: What does 'Adios' mean?")
-            AnswerButton(text = "Thank You") { }
-            AnswerButton(text = "Please") { }
-            AnswerButton(text = "Goodbye") { }
-            AnswerButton(text = "Hello") { }
+            AnswerButton(text = "Thank You") { question4Result = "Incorrect!"}
+            AnswerButton(text = "Please") { question4Result = "Incorrect!"}
+            AnswerButton(text = "Goodbye") { question4Result = "Correct!"
+                if (!question4Scored) {
+                    score++
+                    question4Scored = true
+                }
+            }
+            AnswerButton(text = "Hello") { question4Result = "Incorrect!"}
+
+            Text(question4Result)
         }
     }
 
