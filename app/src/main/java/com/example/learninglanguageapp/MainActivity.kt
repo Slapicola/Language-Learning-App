@@ -115,7 +115,7 @@ fun QuizScreen(onBackClick: () -> Unit) {
     Column {
         Text("Vocabulary Quiz")
         BackButton { onBackClick() }
-        var score by remember {mutableIntStateOf(0)};
+        var score by remember {mutableIntStateOf(0)}
         Text(text = "Score: $score")
 
         var question1Result by remember { mutableStateOf("") }
