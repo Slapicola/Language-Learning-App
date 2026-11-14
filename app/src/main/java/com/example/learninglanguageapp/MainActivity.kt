@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -112,11 +114,11 @@ fun HomeScreen(
 
 @Composable
 fun QuizScreen(onBackClick: () -> Unit) {
-    Column {
+    Column (modifier = Modifier.verticalScroll(rememberScrollState())) {
         Text("Vocabulary Quiz")
         BackButton { onBackClick() }
         var score by remember {mutableIntStateOf(0)}
-        Text(text = "Score: $score")
+        Text(text = "Score: $score/4")
 
         var question1Result by remember { mutableStateOf("") }
         var question2Result by remember { mutableStateOf("") }
@@ -142,6 +144,7 @@ fun QuizScreen(onBackClick: () -> Unit) {
             AnswerButton(text = "Thank You") { question1Result = "Incorrect!"}
 
             Text(question1Result)
+            Text("-------------------------------------------")
         }
         Column {
             Text("Question 2: What does 'Por favor' mean?")
@@ -157,6 +160,7 @@ fun QuizScreen(onBackClick: () -> Unit) {
             }
 
             Text(question2Result)
+            Text("-------------------------------------------")
         }
         Column {
             Text("Question 3: What does 'Gracias' mean?")
@@ -171,6 +175,7 @@ fun QuizScreen(onBackClick: () -> Unit) {
             AnswerButton(text = "Goodbye") { question3Result = "Incorrect!"}
 
             Text(question3Result)
+            Text("-------------------------------------------")
         }
         Column {
             Text("Question 4: What does 'Adios' mean?")
@@ -185,6 +190,12 @@ fun QuizScreen(onBackClick: () -> Unit) {
             AnswerButton(text = "Hello") { question4Result = "Incorrect!"}
 
             Text(question4Result)
+            Text("-------------------------------------------")
+        }
+        if(question1Result != "" && question2Result != "" && question3Result != "" && question4Result != "") {
+            Text("Quiz Complete!\n" +
+                    "Final Score: $score/4")
+
         }
     }
 
@@ -200,43 +211,47 @@ fun AnswerButton(text: String, onClick: () -> Unit) {
 
 @Composable
 fun PronunciationScreen(onBackClick: () -> Unit) {
-    Row {
-        Text("Pronunciation Guide")
-        BackButton { onBackClick() }
+    Column (modifier = Modifier.verticalScroll(rememberScrollState())){
+        Row {
+            Text("Pronunciation Guide")
+            BackButton { onBackClick() }
+        }
+
+        Column {
+            Text("Word: Hola")
+            Text("Pronunciation: OH-lah")
+            Text("English Translation: Hello")
+
+            Text("Word: Gracias")
+            Text("Pronunciation: GRAH-see-ahs")
+            Text("English Translation: Thank you")
+
+            Text("Word: Por favor")
+            Text("Pronunciation: POUR fa-vore")
+            Text("English Translation: Please")
+
+            Text("Word: De nada")
+            Text("Pronunciation: de naw-daw")
+            Text("English Translation: You're Welcome")
+
+            Text("Word: Madre")
+            Text("Pronunciation: ma-dreh")
+            Text("English Translation: mother")
+
+            Text("Word: Padre")
+            Text("Pronunciation: paw-dreh")
+            Text("English Translation: father")
+
+            Text("Word: Hermano")
+            Text("Pronunciation: her-mah-no")
+            Text("English Translation: brother")
+
+            Text("Word: Hermana")
+            Text("Pronunciation: her-mah-nah")
+            Text("English Translation: sister")
+        }
     }
-    Column {
-        Text("Word: Hola")
-        Text("Pronunciation: OH-lah")
-        Text("English Translation: Hello")
 
-        Text("Word: Gracias")
-        Text("Pronunciation: GRAH-see-ahs")
-        Text("English Translation: Thank you")
-
-        Text("Word: Por favor")
-        Text("Pronunciation: POUR fa-vore")
-        Text("English Translation: Please")
-
-        Text("Word: De nada")
-        Text("Pronunciation: de naw-daw")
-        Text("English Translation: You're Welcome")
-
-        Text("Word: Madre")
-        Text("Pronunciation: ma-dreh")
-        Text("English Translation: mother")
-
-        Text("Word: Padre")
-        Text("Pronunciation: paw-dreh")
-        Text("English Translation: father")
-
-        Text("Word: Hermano")
-        Text("Pronunciation: her-mah-no")
-        Text("English Translation: brother")
-
-        Text("Word: Hermana")
-        Text("Pronunciation: her-mah-nah")
-        Text("English Translation: sister")
-    }
 
 }
 
