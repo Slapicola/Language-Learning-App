@@ -4,13 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -21,8 +25,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.learninglanguageapp.ui.theme.LearningLanguageAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,22 +57,23 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(modifier: Modifier = Modifier) {
     Text(
-        text = "Welcome to the Language Learning App!",
+        text = "Welcome to the Language Learner App!",
         modifier = modifier, style = MaterialTheme.typography.titleLarge
     )
 }
 
 @Composable
 fun VocabQuizButton(onClick: () -> Unit) {
-    FilledTonalButton(onClick =  { onClick() }) {
-        Text("Vocabulary Quiz")
+    FilledTonalButton(onClick =  { onClick() }, modifier = Modifier.size(width = 500.dp, height = 150.dp), colors = ButtonDefaults.buttonColors(containerColor = Color.Black, contentColor = Color.White)) {
+        Text("Vocabulary Quiz", fontSize = 30.sp)
     }
 }
 
 @Composable
 fun PronunciationButton(onClick: () -> Unit) {
-    FilledTonalButton(onClick = { onClick()}) {
-        Text("Pronunciation Guide")
+    FilledTonalButton(onClick = { onClick()}, modifier = Modifier.size(width = 500.dp, height = 150.dp), colors = ButtonDefaults.buttonColors(containerColor = Color.Black, contentColor = Color.White)) {
+
+        Text("Pronunciation Guide", fontSize = 30.sp)
     }
 }
 
@@ -106,7 +115,9 @@ fun HomeScreen(
     onPronunciationClick: () -> Unit) {
 
 
-    Column {
+    Column (modifier = Modifier.fillMaxSize().background(color = Color.White),
+        verticalArrangement = Arrangement.SpaceEvenly,
+    horizontalAlignment = Alignment.CenterHorizontally){
         Greeting()
         VocabQuizButton {onQuizClick()}
         PronunciationButton {onPronunciationClick()}
@@ -115,7 +126,8 @@ fun HomeScreen(
 
 @Composable
 fun QuizScreen(onBackClick: () -> Unit) {
-    Column (modifier = Modifier.verticalScroll(rememberScrollState())) {
+    Column (modifier = Modifier.verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Center) {
         var score by remember { mutableIntStateOf(0) }
         Row {
             Text("Vocabulary Quiz", style = MaterialTheme.typography.titleLarge)
