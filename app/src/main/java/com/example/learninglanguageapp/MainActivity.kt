@@ -5,11 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -332,38 +334,28 @@ fun PronunciationScreen(onBackClick: () -> Unit) {
             Spacer(modifier = Modifier.width(25.dp))
             BackButton { onBackClick() }
         }
+        Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+            Text("Word", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold)
+            Text("Pronunciation", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold)
+            Text("English Translation", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold)
+        }
         CompositionLocalProvider(LocalContentColor provides Color.Black) {
-            Column {
-                Word("Hola", "OH-lah", "Hello")
 
-                Text("")
+                Word("Hola", "OH-lah", "Hello")
 
                 Word("Gracias", "GRAH-see-ahs", "Thank you")
 
-                Text("")
-
                 Word("Por favor", "POUR fa-vore", "Please")
-
-                Text("")
 
                 Word("De nada", "de naw-daw", "You're welcome")
 
-                Text("")
-
                 Word("Madre", "ma-dreh", "mother")
-
-                Text("")
 
                 Word("Padre", "paw-dreh", "father")
 
-                Text("")
-
                 Word("Hermano", "her-mah-no", "brother")
 
-                Text("")
-
                 Word("Hermana", "her-mah-nah", "sister")
-            }
         }
 
     }
@@ -372,9 +364,11 @@ fun PronunciationScreen(onBackClick: () -> Unit) {
 }
 @Composable
 fun Word(word: String, pronunciation: String, translation: String) {
-    Text("Word: $word")
-    Text("Pronunciation: $pronunciation")
-    Text("English Translation: $translation")
+    Row(modifier = Modifier.fillMaxWidth().padding(8.dp)){
+        Text(text = word, modifier = Modifier.weight(0.25F))
+        Text(text = pronunciation, modifier = Modifier.weight(0.25F))
+        Text(text = translation, modifier = Modifier.weight(0.25F))
+    }
 }
 
 @Preview(showBackground = true)
