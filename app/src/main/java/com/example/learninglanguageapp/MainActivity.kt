@@ -19,10 +19,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -326,61 +328,53 @@ fun AnswerButton(text: String, onClick: () -> Unit) {
 fun PronunciationScreen(onBackClick: () -> Unit) {
     Column (modifier = Modifier.verticalScroll(rememberScrollState()).background(color = Color.White).fillMaxWidth()){
         Row {
-            Text("Pronunciation Guide", style = MaterialTheme.typography.titleLarge)
+            Text("Pronunciation Guide", style = MaterialTheme.typography.titleLarge, color = Color.Black)
             Spacer(modifier = Modifier.width(25.dp))
             BackButton { onBackClick() }
         }
+        CompositionLocalProvider(LocalContentColor provides Color.Black) {
+            Column {
+                Word("Hola", "OH-lah", "Hello")
 
-        Column {
-            Text("Word: Hola")
-            Text("Pronunciation: OH-lah")
-            Text("English Translation: Hello")
+                Text("")
 
-            Text("")
+                Word("Gracias", "GRAH-see-ahs", "Thank you")
 
-            Text("Word: Gracias")
-            Text("Pronunciation: GRAH-see-ahs")
-            Text("English Translation: Thank you")
+                Text("")
 
-            Text("")
+                Word("Por favor", "POUR fa-vore", "Please")
 
-            Text("Word: Por favor")
-            Text("Pronunciation: POUR fa-vore")
-            Text("English Translation: Please")
+                Text("")
 
-            Text("")
+                Word("De nada", "de naw-daw", "You're welcome")
 
-            Text("Word: De nada")
-            Text("Pronunciation: de naw-daw")
-            Text("English Translation: You're Welcome")
+                Text("")
 
-            Text("")
+                Word("Madre", "ma-dreh", "mother")
 
-            Text("Word: Madre")
-            Text("Pronunciation: ma-dreh")
-            Text("English Translation: mother")
+                Text("")
 
-            Text("")
+                Word("Padre", "paw-dreh", "father")
 
-            Text("Word: Padre")
-            Text("Pronunciation: paw-dreh")
-            Text("English Translation: father")
+                Text("")
 
-            Text("")
+                Word("Hermano", "her-mah-no", "brother")
 
-            Text("Word: Hermano")
-            Text("Pronunciation: her-mah-no")
-            Text("English Translation: brother")
+                Text("")
 
-            Text("")
-
-            Text("Word: Hermana")
-            Text("Pronunciation: her-mah-nah")
-            Text("English Translation: sister")
+                Word("Hermana", "her-mah-nah", "sister")
+            }
         }
+
     }
 
 
+}
+@Composable
+fun Word(word: String, pronunciation: String, translation: String) {
+    Text("Word: $word")
+    Text("Pronunciation: $pronunciation")
+    Text("English Translation: $translation")
 }
 
 @Preview(showBackground = true)
@@ -390,7 +384,7 @@ fun GreetingPreview() {
         Column {
             Greeting()
             VocabQuizButton {}
-            PronunciationButton {println("Pronunciation button Clicked")}
+            PronunciationButton {}
         }
 
     }
