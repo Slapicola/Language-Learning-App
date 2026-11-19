@@ -333,27 +333,87 @@ fun PronunciationScreen(onBackClick: () -> Unit) {
             BackButton { onBackClick() }
         }
         Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
-            Text("Word", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold)
-            Text("Pronunciation", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold)
-            Text("English Translation", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold)
+            Text("Word", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
+            Text("Pronunciation", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
+            Text("English Translation", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
         }
         CompositionLocalProvider(LocalContentColor provides Color.Black) {
+            Column(modifier = Modifier.padding(16.dp)) {
+
+                Text(
+                    "Greetings and Manners",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
 
                 Word("Hola", "OH-lah", "Hello")
-
                 Word("Gracias", "GRAH-see-ahs", "Thank you")
-
                 Word("Por favor", "POUR fa-vore", "Please")
-
                 Word("De nada", "de naw-daw", "You're welcome")
 
+                Text(
+                    "People",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("Familia", "fah-MEE-lee-ah", "family")
                 Word("Madre", "ma-dreh", "mother")
-
                 Word("Padre", "paw-dreh", "father")
-
                 Word("Hermano", "her-mah-no", "brother")
-
                 Word("Hermana", "her-mah-nah", "sister")
+                Word("Amigo", "ah-MEE-goh", "friend")
+
+                Text(
+                    "Food and Drink",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("Agua", "AH-gwah", "water")
+                Word("Comida", "koh-MEE-dah", "food")
+                Word("Pollo", "poy-oh", "chicken")
+                Word("Arroz", "ah-rose", "rice")
+                Word("Refresco", "re-FRES-co", "soda")
+
+                Text(
+                    "Places",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("Casa", "KAH-sah", "house")
+                Word("Escuela", "es-KWEH-lah", "school")
+                Word("Trabajo", "trah-BAH-ho", "work")
+                Word("Biblioteca", "bib-lee-oh-tech-ah", "library")
+
+                Text(
+                    "Things",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+                Word("Libro", "LEE-broh", "book")
+                Word("Coche", "KOH-cheh", "car")
+                Word("lapiz", "lah-peas", "pencil")
+                Word("papel", "pah-pel", "paper")
+
+                Text(
+                    "Time",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("Tiempo", "TEE-em-poh", "time")
+                Word("mañana", "mahn-yah-nah", "morning")
+                Word("Día", "DEE-ah", "day")
+                Word("Noche", "NO-cheh", "night")
+            }
         }
 
     }
