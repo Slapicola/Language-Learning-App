@@ -70,6 +70,33 @@ fun Greeting(modifier: Modifier = Modifier) {
     )
 }
 
+//--------------Buttons------------------------
+@Composable
+fun SpanishButton(onClick: () -> Unit) {
+    FilledTonalButton(onClick =  { onClick() }, modifier = Modifier.size(width = 500.dp, height = 150.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Black,
+            contentColor = Color.White)) {
+        Text("Spanish", fontSize = 30.sp)
+    }
+}
+@Composable
+fun FrenchButton(onClick: () -> Unit) {
+    FilledTonalButton(onClick =  { onClick() }, modifier = Modifier.size(width = 500.dp, height = 150.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Black,
+            contentColor = Color.White)) {
+        Text("French", fontSize = 30.sp)
+    }
+}
+
+@Composable
+fun ChineseButton(onClick: () -> Unit) {
+    FilledTonalButton(onClick =  { onClick() }, modifier = Modifier.size(width = 500.dp, height = 150.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Black,
+            contentColor = Color.White)) {
+        Text("Chinese", fontSize = 30.sp)
+    }
+}
+
 @Composable
 fun VocabQuizButton(onClick: () -> Unit) {
     FilledTonalButton(onClick =  { onClick() }, modifier = Modifier.size(width = 500.dp, height = 150.dp),
@@ -104,15 +131,23 @@ fun LanguageLearningAppScreens() {
 
     when (currentScreen) {
         "home" -> HomeScreen(
-            onQuizClick = {
-                currentScreen = "quiz"
-            },
-            onPronunciationClick = {
-                currentScreen = "pronunciation"
-            }
-        )
+            onSpanishClick = {currentScreen = "spanishMenu"},
+            onFrenchClick = {currentScreen = "frenchMenu"},
+            onChineseClick = {currentScreen = "chineseMenu"}
 
-        "quiz" -> QuizScreen(onBackClick = {
+//            onQuizClick = {
+//                currentScreen = "quiz"
+//            },
+//            onPronunciationClick = {
+//                currentScreen = "pronunciation"
+//            }
+        )
+        "spanishMenu" -> LanguageMenuScreen(languageName = "Spanish",
+            onQuizClick = {currentScreen = "spanishQuiz"},
+            onPronunciationClick = {currentScreen = "spanishGuide"},
+            onBackClick = {currentScreen = "home"})
+
+        "spanishQuiz" -> QuizScreen(onBackClick = {
             currentScreen = "home"
         })
         "pronunciation" -> PronunciationScreen(onBackClick = {
@@ -122,18 +157,32 @@ fun LanguageLearningAppScreens() {
 }
 
 @Composable
-fun HomeScreen(
-    onQuizClick: () -> Unit,
-    onPronunciationClick: () -> Unit) {
-
-
+fun HomeScreen(onSpanishClick: () -> Unit,
+               onFrenchClick: () -> Unit,
+               onChineseClick: () -> Unit) {
     Column (modifier = Modifier.fillMaxSize().background(color = Color.White),
         verticalArrangement = Arrangement.SpaceEvenly,
     horizontalAlignment = Alignment.CenterHorizontally){
         Greeting()
-        VocabQuizButton {onQuizClick()}
-        PronunciationButton {onPronunciationClick()}
+        SpanishButton {onSpanishClick()}
+        FrenchButton {onFrenchClick() }
+        ChineseButton { onChineseClick() }
     }
+}
+
+@Composable
+fun LanguageMenuScreen(languageName: String,
+                       onQuizClick: () -> Unit,
+                       onPronunciationClick: () -> Unit,
+                       onBackClick: () -> Unit) {
+    Column {
+        Text(languageName)
+        BackButton { onBackClick() }
+        VocabQuizButton { onQuizClick() }
+        PronunciationButton { onPronunciationClick() }
+    }
+
+
 }
 
 @Composable
