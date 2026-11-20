@@ -134,13 +134,6 @@ fun LanguageLearningAppScreens() {
             onSpanishClick = {currentScreen = "spanishMenu"},
             onFrenchClick = {currentScreen = "frenchMenu"},
             onChineseClick = {currentScreen = "chineseMenu"}
-
-//            onQuizClick = {
-//                currentScreen = "quiz"
-//            },
-//            onPronunciationClick = {
-//                currentScreen = "pronunciation"
-//            }
         )
         "spanishMenu" -> LanguageMenuScreen(languageName = "Spanish",
             onQuizClick = {currentScreen = "spanishQuiz"},
@@ -148,10 +141,10 @@ fun LanguageLearningAppScreens() {
             onBackClick = {currentScreen = "home"})
 
         "spanishQuiz" -> SpanishQuizScreen(onBackClick = {
-            currentScreen = "home"
+            currentScreen = "spanishMenu"
         })
         "spanishGuide" -> SpanishPronunciationScreen(onBackClick = {
-            currentScreen = "home"
+            currentScreen = "spanishMenu"
         })
 
 
@@ -161,10 +154,10 @@ fun LanguageLearningAppScreens() {
             onBackClick = {currentScreen = "home"})
 
         "frenchQuiz" -> FrenchQuizScreen(onBackClick = {
-            currentScreen = "home"
+            currentScreen = "frenchMenu"
         })
         "frenchGuide" -> FrenchPronunciationScreen(onBackClick = {
-            currentScreen = "home"
+            currentScreen = "frenchMenu"
         })
 
 
@@ -173,12 +166,12 @@ fun LanguageLearningAppScreens() {
             onPronunciationClick = {currentScreen = "chineseGuide"},
             onBackClick = {currentScreen = "home"})
 
-//        "chineseQuiz" -> ChineseQuizScreen(onBackClick = {
-//            currentScreen = "home"
-//        })
-//        "chineseGuide" -> ChinesePronunciationScreen(onBackClick = {
-//            currentScreen = "home"
-//        })
+        "chineseQuiz" -> ChineseQuizScreen(onBackClick = {
+            currentScreen = "chineseMenu"
+        })
+        "chineseGuide" -> ChinesePronunciationScreen(onBackClick = {
+            currentScreen = "chineseMenu"
+        })
     }
 }
 
@@ -573,6 +566,179 @@ fun FrenchQuizScreen(onBackClick: () -> Unit) {
 }
 
 @Composable
+fun ChineseQuizScreen(onBackClick: () -> Unit) {
+    Column (modifier = Modifier.verticalScroll(rememberScrollState()).background(color = Color.White).fillMaxWidth()) {
+        var score by remember { mutableIntStateOf(0) }
+        Row (modifier = Modifier.padding(16.dp)){
+            Text("Vocabulary Quiz", style = MaterialTheme.typography.titleLarge, color = Color.Black)
+            Spacer(modifier = Modifier.width(25.dp))
+            BackButton { onBackClick() }
+        }
+        Text(text = "Score: $score/8", color = Color.Black)
+
+        var question1Result by remember { mutableStateOf("") }
+        var question2Result by remember { mutableStateOf("") }
+        var question3Result by remember { mutableStateOf("") }
+        var question4Result by remember { mutableStateOf("") }
+        var question5Result by remember { mutableStateOf("") }
+        var question6Result by remember { mutableStateOf("") }
+        var question7Result by remember { mutableStateOf("") }
+        var question8Result by remember { mutableStateOf("") }
+
+        var question1Scored by remember { mutableStateOf(false) }
+        var question2Scored by remember { mutableStateOf(false) }
+        var question3Scored by remember { mutableStateOf(false) }
+        var question4Scored by remember { mutableStateOf(false) }
+        var question5Scored by remember { mutableStateOf(false) }
+        var question6Scored by remember { mutableStateOf(false) }
+        var question7Scored by remember { mutableStateOf(false) }
+        var question8Scored by remember { mutableStateOf(false) }
+
+        Row {
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 1: What does '你好 (Nǐ hǎo)' mean?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Goodbye") { question1Result = "Incorrect!"}
+                AnswerButton(text = "Hello") {
+                    question1Result = "Correct!"
+                    if (!question1Scored) {
+                        score++
+                        question1Scored = true
+                    }
+                }
+                AnswerButton(text = "Please") { question1Result = "Incorrect!"}
+                AnswerButton(text = "Thank You") { question1Result = "Incorrect!"}
+
+                Text(question1Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 2: What is the meaning of '谢谢 (Xièxie)'?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Sorry") { question2Result = "Incorrect!" }
+                AnswerButton(text = "You're welcome") { question2Result = "Incorrect!"}
+                AnswerButton(text = "Thank you") { question2Result = "Correct!"
+                    if (!question2Scored) {
+                        score++
+                        question2Scored = true
+                    }}
+                AnswerButton(text = "Good night") { question2Result = "Incorrect!"
+                }
+
+                Text(question2Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 3: What does '再见 (Zàijiàn)' mean?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Goodbye") { question3Result = "Correct!"
+                    if (!question3Scored) {
+                        score++
+                        question3Scored = true
+                    }}
+                AnswerButton(text = "Please") {question3Result = "Incorrect!" }
+                AnswerButton(text = "Hello") { question3Result = "Incorrect!" }
+                AnswerButton(text = "Yes") { question3Result = "Incorrect!"}
+
+                Text(question3Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+        }
+
+        Row {
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 4: What is the meaning of '是 (Shì)'?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "No") { question4Result = "Incorrect!"}
+                AnswerButton(text = "Maybe") { question4Result = "Incorrect!" }
+                AnswerButton(text = "Yes") { question4Result = "Correct!"
+                    if (!question4Scored) {
+                        score++
+                        question4Scored = true
+                    }}
+                AnswerButton(text = "Friend") { question4Result = "Incorrect!"}
+
+                Text(question4Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 5: What does '不 (Bù)' mean?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Please") { question5Result = "Incorrect!"}
+                AnswerButton(text = "No") { question5Result = "Correct!"
+                    if (!question5Scored) {
+                        score++
+                        question5Scored = true
+                    }}
+                AnswerButton(text = "Thank you") { question5Result = "Incorrect!"}
+                AnswerButton(text = "Morning") { question5Result = "Incorrect!" }
+
+                Text(question5Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 6: What is the Chinese word for 'Friend'?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "朋友 (Péngyǒu)") { question6Result = "Correct!"
+                    if (!question6Scored) {
+                        score++
+                        question6Scored = true
+                    }}
+                AnswerButton(text = "家 (Jiā)") { question6Result = "Incorrect!" }
+                AnswerButton(text = "水 (Shuǐ)") { question6Result = "Incorrect!" }
+                AnswerButton(text = "书 (Shū)") { question6Result = "Incorrect!" }
+
+                Text(question6Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+
+        }
+
+        Row{
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 7: What does '水 (Shuǐ)' mean?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Food") { question7Result = "Incorrect!"}
+                AnswerButton(text = "Water") { question7Result = "Correct!"
+                    if (!question7Scored) {
+                        score++
+                        question7Scored = true
+                    }}
+                AnswerButton(text = "Tea") { question7Result = "Incorrect!" }
+                AnswerButton(text = "Rice") { question7Result = "Incorrect!" }
+
+                Text(question7Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 8: What is the meaning of '学校 (Xuéxiào)'?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Hospital") { question8Result = "Incorrect!" }
+                AnswerButton(text = "Restaurant") { question8Result = "Incorrect!" }
+                AnswerButton(text = "School") { question8Result = "Correct!"
+                    if (!question8Scored) {
+                        score++
+                        question8Scored = true
+                    }}
+                AnswerButton(text = "Store") { question8Result = "Incorrect!" }
+
+                Text(question8Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+        }
+
+
+        if(question1Result != ""
+            && question2Result != ""
+            && question3Result != ""
+            && question4Result != ""
+            && question5Result != ""
+            && question6Result != ""
+            && question7Result != ""
+            && question8Result != "") {
+            Text("Quiz Complete!" + " " +
+                    "Final Score: $score/8", color = Color.Black, fontSize = 35.sp)
+
+        }
+    }
+
+}
+
+@Composable
 fun AnswerButton(text: String, onClick: () -> Unit) {
     FilledTonalButton(onClick = { onClick()}, colors = ButtonDefaults.buttonColors(containerColor = Color.Black)) {
         Text(text, color = Color.White)
@@ -770,6 +936,103 @@ fun FrenchPronunciationScreen(onBackClick: () -> Unit) {
 
     }
 }
+
+
+@Composable
+fun ChinesePronunciationScreen(onBackClick: () -> Unit) {
+    Column (modifier = Modifier.verticalScroll(rememberScrollState()).background(color = Color.White).fillMaxWidth()){
+        Row {
+            Text("Pronunciation Guide", style = MaterialTheme.typography.titleLarge, color = Color.Black)
+            Spacer(modifier = Modifier.width(25.dp))
+            BackButton { onBackClick() }
+        }
+        Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+            Text("Word", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
+            Text("Pronunciation", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
+            Text("English Translation", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
+        }
+        CompositionLocalProvider(LocalContentColor provides Color.Black) {
+            Column(modifier = Modifier.padding(16.dp)) {
+
+                Text(
+                    "Greetings and Manners",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("你好 (Nǐ hǎo)", "nee how", "Hello")
+                Word("谢谢 (Xièxie)", "shyeh-shyeh", "Thank you")
+                Word("请 (Qǐng)", "cheeng", "Please")
+                Word("不客气 (Bú kèqi)", "boo kuh-chee", "You're welcome")
+
+                Text(
+                    "People",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("家庭 (Jiātíng)", "jyah-ting", "family")
+                Word("妈妈 (Māma)", "mah-mah", "mother")
+                Word("爸爸 (Bàba)", "bah-bah", "father")
+                Word("哥哥 (Gēge)", "guh-guh", " older brother")
+                Word("姐姐 (Jiějie)", "jyeh-jyeh", "older sister")
+                Word("朋友 (Péngyou)", "peng-yo", "friend")
+
+                Text(
+                    "Food and Drink",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("水 (Shuǐ)", "shway", "water")
+                Word("食物 (Shíwù)", "shrr-WOO", "food")
+                Word("鸡肉 (Jīròu)", "jee-row", "chicken")
+                Word("米饭 (Mǐfàn)", "mee-fan", "rice")
+                Word("牛奶 (Niúnǎi)", "nyoh-nye", "milk")
+
+                Text(
+                    "Places",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("家 (Jiā)", "jya", "home")
+                Word("学校 (Xuéxiào)", "shweh-shyaow", "school")
+                Word("城市 (Chéngshì)", "chung-shir", "city")
+                Word("图书馆 (Túshūguǎn)", "too-shoo-gwan", "library")
+
+                Text(
+                    "Things",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+                Word("书 (Shū)", "shoo", "book")
+                Word("车 (Chē)", "chuh", "car")
+                Word("笔 (Bǐ)", "bee", "pen")
+                Word("手机 (Shǒujī)", "show-jee", "phone")
+
+                Text(
+                    "Time",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("时间 (Shíjiān)", "shr-jyen", "time")
+                Word("早上 (Zǎoshang)", "dzaow-shahng", "morning")
+                Word("天 (Tiān)", "tyen", "day")
+                Word("夜晚 (Yèwǎn)", "yeh-wahn", "night")
+            }
+        }
+
+    }
+}
+
 @Composable
 fun Word(word: String, pronunciation: String, translation: String) {
     Row(modifier = Modifier.fillMaxWidth().padding(8.dp)){
