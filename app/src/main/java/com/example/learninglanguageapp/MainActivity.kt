@@ -147,12 +147,38 @@ fun LanguageLearningAppScreens() {
             onPronunciationClick = {currentScreen = "spanishGuide"},
             onBackClick = {currentScreen = "home"})
 
-        "spanishQuiz" -> QuizScreen(onBackClick = {
+        "spanishQuiz" -> SpanishQuizScreen(onBackClick = {
             currentScreen = "home"
         })
-        "pronunciation" -> PronunciationScreen(onBackClick = {
+        "spanishGuide" -> SpanishPronunciationScreen(onBackClick = {
             currentScreen = "home"
         })
+
+
+        "frenchMenu" -> LanguageMenuScreen(languageName = "French",
+            onQuizClick = {currentScreen = "frenchQuiz"},
+            onPronunciationClick = {currentScreen = "frenchGuide"},
+            onBackClick = {currentScreen = "home"})
+
+        "frenchQuiz" -> FrenchQuizScreen(onBackClick = {
+            currentScreen = "home"
+        })
+//        "frenchGuide" -> FrenchPronunciationScreen(onBackClick = {
+//            currentScreen = "home"
+//        })
+
+
+        "chineseMenu" -> LanguageMenuScreen(languageName = "Chinese",
+            onQuizClick = {currentScreen = "chineseQuiz"},
+            onPronunciationClick = {currentScreen = "chineseGuide"},
+            onBackClick = {currentScreen = "home"})
+
+//        "chineseQuiz" -> ChineseQuizScreen(onBackClick = {
+//            currentScreen = "home"
+//        })
+//        "chineseGuide" -> ChinesePronunciationScreen(onBackClick = {
+//            currentScreen = "home"
+//        })
     }
 }
 
@@ -186,7 +212,7 @@ fun LanguageMenuScreen(languageName: String,
 }
 
 @Composable
-fun QuizScreen(onBackClick: () -> Unit) {
+fun SpanishQuizScreen(onBackClick: () -> Unit) {
     Column (modifier = Modifier.verticalScroll(rememberScrollState()).background(color = Color.White).fillMaxWidth()) {
         var score by remember { mutableIntStateOf(0) }
         Row (modifier = Modifier.padding(16.dp)){
@@ -365,6 +391,187 @@ fun QuizScreen(onBackClick: () -> Unit) {
 
 }
 
+
+@Composable
+fun FrenchQuizScreen(onBackClick: () -> Unit) {
+    Column (modifier = Modifier.verticalScroll(rememberScrollState()).background(color = Color.White).fillMaxWidth()) {
+        var score by remember { mutableIntStateOf(0) }
+        Row (modifier = Modifier.padding(16.dp)){
+            Text("Vocabulary Quiz", style = MaterialTheme.typography.titleLarge, color = Color.Black)
+            Spacer(modifier = Modifier.width(25.dp))
+            BackButton { onBackClick() }
+        }
+        Text(text = "Score: $score/8", color = Color.Black)
+
+        var question1Result by remember { mutableStateOf("") }
+        var question2Result by remember { mutableStateOf("") }
+        var question3Result by remember { mutableStateOf("") }
+        var question4Result by remember { mutableStateOf("") }
+        var question5Result by remember { mutableStateOf("") }
+        var question6Result by remember { mutableStateOf("") }
+        var question7Result by remember { mutableStateOf("") }
+        var question8Result by remember { mutableStateOf("") }
+
+        var question1Scored by remember { mutableStateOf(false) }
+        var question2Scored by remember { mutableStateOf(false) }
+        var question3Scored by remember { mutableStateOf(false) }
+        var question4Scored by remember { mutableStateOf(false) }
+        var question5Scored by remember { mutableStateOf(false) }
+        var question6Scored by remember { mutableStateOf(false) }
+        var question7Scored by remember { mutableStateOf(false) }
+        var question8Scored by remember { mutableStateOf(false) }
+
+        Row {
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 1: What does 'Bonjour' mean?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Goodbye") { question1Result = "Incorrect!"}
+                AnswerButton(text = "Hello") {
+                    question1Result = "Correct!"
+                    if (!question1Scored) {
+                        score++
+                        question1Scored = true
+                    }
+                }
+                AnswerButton(text = "Please") { question1Result = "Incorrect!"}
+                AnswerButton(text = "Thank You") { question1Result = "Incorrect!"}
+
+                Text(question1Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 2: What is the French word for 'Thank you'?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Merci") {
+                    question2Result = "Correct!"
+                    if (!question2Scored) {
+                        score++
+                        question2Scored = true
+                    }
+                }
+                AnswerButton(text = "Pardon") { question2Result = "Incorrect!"}
+                AnswerButton(text = "Bonsoir") { question2Result = "Incorrect!"}
+                AnswerButton(text = "Salut") { question2Result = "Incorrect!"
+                }
+
+                Text(question2Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 3: What does 'Au revoir' mean?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Good Morning") { question3Result = "Incorrect!"}
+                AnswerButton(text = "Please") {question3Result = "Incorrect!" }
+                AnswerButton(text = "Goodbye") { question3Result = "Correct!"
+                    if (!question3Scored) {
+                        score++
+                        question3Scored = true
+                    }
+                }
+                AnswerButton(text = "You're Welcome") { question3Result = "Incorrect!"}
+
+                Text(question3Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+        }
+
+        Row {
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 4: What is the French word for 'Yes'?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Non") { question4Result = "Incorrect!"}
+                AnswerButton(text = "Oui") { question4Result = "Correct!"
+                    if (!question4Scored) {
+                        score++
+                        question4Scored = true
+                    }
+                }
+                AnswerButton(text = "Merci") { question4Result = "Incorrect!" }
+                AnswerButton(text = "Salut") { question4Result = "Incorrect!"}
+
+                Text(question4Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 5: What does 'Non' mean?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "No") { question5Result = "Correct!"
+                    if (!question5Scored) {
+                        score++
+                        question5Scored = true
+                    }
+                }
+                AnswerButton(text = "Good night") { question5Result = "Incorrect!"}
+                AnswerButton(text = "Hello") {
+                    question5Result = "Incorrect!"
+                }
+                AnswerButton(text = "Please") { question5Result = "Incorrect!" }
+
+                Text(question5Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 6: What is the french word for 'Please'?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Merci") { question6Result = "Incorrect!"}
+                AnswerButton(text = "S'il vous plait") { question6Result = "Correct!"
+                    if (!question6Scored) {
+                        score++
+                        question6Scored = true
+                    }}
+                AnswerButton(text = "Bonsoir") { question6Result = "Incorrect!" }
+                AnswerButton(text = "Pardon") { question6Result = "Incorrect!" }
+
+                Text(question6Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+
+        }
+
+        Row{
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 7: What does 'Bonsoir' mean?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Good Evening") { question7Result = "Correct!"
+                    if (!question7Scored) {
+                        score++
+                        question7Scored = true
+                    }}
+                AnswerButton(text = "Good Morning") { question7Result = "Incorrect!" }
+                AnswerButton(text = "See you later") { question7Result = "Incorrect!" }
+                AnswerButton(text = "Excuse me") { question7Result = "Incorrect!" }
+
+                Text(question7Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+            Column (modifier = Modifier.padding(16.dp)){
+                Text("Question 8: What is the French word for 'Excuse me'?", fontWeight = FontWeight.Bold, color = Color.Black)
+                AnswerButton(text = "Salut") { question8Result = "Incorrect!" }
+                AnswerButton(text = "Pardon") { question8Result = "Correct!"
+                    if (!question8Scored) {
+                        score++
+                        question8Scored = true
+                    }}
+                AnswerButton(text = "Oui") { question8Result = "Incorrect!" }
+                AnswerButton(text = "Merci") { question8Result = "Incorrect!" }
+
+                Text(question8Result, color = Color.Black)
+                Text("-------------------------------------------")
+            }
+        }
+
+
+        if(question1Result != ""
+            && question2Result != ""
+            && question3Result != ""
+            && question4Result != ""
+            && question5Result != ""
+            && question6Result != ""
+            && question7Result != ""
+            && question8Result != "") {
+            Text("Quiz Complete!" + " " +
+                    "Final Score: $score/8", color = Color.Black, fontSize = 35.sp)
+
+        }
+    }
+
+}
+
 @Composable
 fun AnswerButton(text: String, onClick: () -> Unit) {
     FilledTonalButton(onClick = { onClick()}, colors = ButtonDefaults.buttonColors(containerColor = Color.Black)) {
@@ -374,7 +581,7 @@ fun AnswerButton(text: String, onClick: () -> Unit) {
 
 
 @Composable
-fun PronunciationScreen(onBackClick: () -> Unit) {
+fun SpanishPronunciationScreen(onBackClick: () -> Unit) {
     Column (modifier = Modifier.verticalScroll(rememberScrollState()).background(color = Color.White).fillMaxWidth()){
         Row {
             Text("Pronunciation Guide", style = MaterialTheme.typography.titleLarge, color = Color.Black)
