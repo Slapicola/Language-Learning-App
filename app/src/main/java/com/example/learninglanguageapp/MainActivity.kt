@@ -163,9 +163,9 @@ fun LanguageLearningAppScreens() {
         "frenchQuiz" -> FrenchQuizScreen(onBackClick = {
             currentScreen = "home"
         })
-//        "frenchGuide" -> FrenchPronunciationScreen(onBackClick = {
-//            currentScreen = "home"
-//        })
+        "frenchGuide" -> FrenchPronunciationScreen(onBackClick = {
+            currentScreen = "home"
+        })
 
 
         "chineseMenu" -> LanguageMenuScreen(languageName = "Chinese",
@@ -673,8 +673,102 @@ fun SpanishPronunciationScreen(onBackClick: () -> Unit) {
         }
 
     }
+}
 
 
+@Composable
+fun FrenchPronunciationScreen(onBackClick: () -> Unit) {
+    Column (modifier = Modifier.verticalScroll(rememberScrollState()).background(color = Color.White).fillMaxWidth()){
+        Row {
+            Text("Pronunciation Guide", style = MaterialTheme.typography.titleLarge, color = Color.Black)
+            Spacer(modifier = Modifier.width(25.dp))
+            BackButton { onBackClick() }
+        }
+        Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+            Text("Word", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
+            Text("Pronunciation", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
+            Text("English Translation", modifier = Modifier.weight(0.25F), color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
+        }
+        CompositionLocalProvider(LocalContentColor provides Color.Black) {
+            Column(modifier = Modifier.padding(16.dp)) {
+
+                Text(
+                    "Greetings and Manners",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("Bonjour", "", "Hello")
+                Word("Merci", "", "Thank you")
+                Word("S'il vous plait", "", "Please")
+                Word("De rien", "", "You're welcome")
+
+                Text(
+                    "People",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("Famille", "", "family")
+                Word("Mère", "", "mother")
+                Word("Père", "", "father")
+                Word("Frère", "", "brother")
+                Word("Sœur", "", "sister")
+                Word("Ami", "", "friend")
+
+                Text(
+                    "Food and Drink",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("Eau", "", "water")
+                Word("Nourriture", "", "food")
+                Word("Poulet", "", "chicken")
+                Word("Riz", "", "rice")
+                Word("Soude", "", "soda")
+
+                Text(
+                    "Places",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("Maison", "", "house")
+                Word("École", "", "school")
+                Word("Ville", "", "city")
+                Word("Bibliothèque", "", "library")
+
+                Text(
+                    "Things",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+                Word("Livre", "", "book")
+                Word("Voiture", "", "car")
+                Word("Stylo", "", "pen")
+                Word("Téléphone", "", "phone")
+
+                Text(
+                    "Time",
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 24.sp
+                )
+
+                Word("temps", "", "time")
+                Word("Matin", "", "morning")
+                Word("jour", "", "day")
+                Word("Nuit", "", "night")
+            }
+        }
+
+    }
 }
 @Composable
 fun Word(word: String, pronunciation: String, translation: String) {
